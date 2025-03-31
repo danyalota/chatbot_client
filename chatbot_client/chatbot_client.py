@@ -176,6 +176,9 @@ class ChatbotClient:
                 is_admin_chat=is_admin_chat,
                 is_trace_log_enabled=is_trace_log_enabled,
             )
+            self.logger.info(
+                f"Succesfully sent and received message to chat with chat_id: {chat_id}"
+            )
             return response.assistantMessage
         except Exception as e:
             self.logger.warning(

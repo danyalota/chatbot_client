@@ -1,8 +1,8 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
     name="chatbot_client",  # Name of the module
-    version="0.1.0",         # Version number
+    version="0.1.0",  # Version number
     packages=find_packages(),  # Automatically find all packages
     install_requires=[  # List any dependencies that need to be installed
         "requests>=2.26.0",
