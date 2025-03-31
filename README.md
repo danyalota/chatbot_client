@@ -5,7 +5,7 @@
 Clone the repository and navigate into the project directory:
 
 ```bash
-$ git clone https://github.com/yourusername/chatbot_client.git
+$ git clone https://github.com/danyalota/chatbot_client.git
 $ cd chatbot_client
 ```
 
@@ -36,7 +36,6 @@ client = ChatbotClient(base_url=base_url)
 
 ```python
 chat_id = client.create_new_chat_id()
-print(f"New chat created with ID: {chat_id}")
 ```
 
 ### Sending a Message
@@ -49,19 +48,16 @@ response = client.send_message_to_chat(
     is_admin_chat=False,
     is_trace_log_enabled=False
 )
-print("Chatbot response:", response)
 ```
 
 ### Fetching an Existing Chat
 
 ```python
 chat_data = client.get_existing_chat(chat_id)
-print("Chat data:", chat_data)
 ```
 
 ### Deleting a Chat
 
 ```python
 client.delete_chat(chat_id)
-print(f"Chat {chat_id} deleted successfully.")
 ```
