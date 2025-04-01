@@ -15,12 +15,6 @@ Install the required dependencies:
 $ pip install .
 ```
 
-Alternatively, if you want to install the dependencies separately:
-
-```bash
-$ pip install -r requirements.txt
-```
-
 ## Usage
 
 ### Importing and Initializing the Chatbot Client
