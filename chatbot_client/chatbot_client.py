@@ -80,14 +80,14 @@ class ChatbotClient:
             response = self._get_chat_create_reponse()
             return response.chatId
         except Exception as e:
-            self.logger.warning(f"Failed to create chat")
+            self.logger.warning(f"Failed to create chat - {e}")
             raise
 
     def delete_chat(self, chat_id: str) -> None:
         try:
             self._make_request(endpoint=f"/api/chats/{chat_id}", method="DELETE")
         except Exception as e:
-            self.logger.warning(f"Failed to delete chat with chat_id: {chat_id}")
+            self.logger.warning(f"Failed to delete chat with chat_id: {chat_id} - {e}")
             raise
 
     def _get_chat_completion_response(
@@ -151,7 +151,7 @@ class ChatbotClient:
             return response.assistantMessage
         except Exception as e:
             self.logger.warning(
-                f"Failed to send message to chat with chat_id: {chat_id}"
+                f"Failed to send message to chat with chat_id: {chat_id} - {e}"
             )
             raise
 
@@ -183,5 +183,5 @@ class ChatbotClient:
             response = self._get_chat_response(chat_id=chat_id)
             return response.chatId
         except Exception as e:
-            self.logger.warning(f"Failed to fetch chat with chat_id: {chat_id}")
+            self.logger.warning(f"Failed to fetch chat with chat_id: {chat_id} - {e}")
             raise

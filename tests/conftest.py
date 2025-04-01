@@ -14,7 +14,6 @@ from chatbot_client.dtos import (
 )
 
 
-# Fixtures for DTOs
 @pytest.fixture
 def chat_create_request_dto():
     return ChatCreateRequestDto(botId="test_bot_id")
@@ -90,13 +89,6 @@ def chat_completion_response_dto():
 @pytest.fixture
 def open_chat_bot_id_response_dto():
     return GetOpenChatBotIdResponseDto(openChatBotId="test_bot_id", isPublic=False)
-
-
-# Mock make_request function
-@pytest.fixture
-def mock_make_request():
-    with patch.object(ChatbotClient, "_make_request") as mock:
-        yield mock
 
 
 @pytest.fixture
