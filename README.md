@@ -32,7 +32,7 @@ client = ChatbotClient(base_url=base_url)
 chat_id = client.create_new_chat_id()
 ```
 
-### Sending a Message
+### Sending a Message and receiving a response
 
 ```python
 response = client.send_message_to_chat(
@@ -44,7 +44,7 @@ response = client.send_message_to_chat(
 )
 ```
 
-### Fetching an Existing Chat
+### Fetching Data of an Existing Chat
 
 ```python
 chat_data = client.get_existing_chat(chat_id)
