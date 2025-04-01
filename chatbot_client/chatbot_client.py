@@ -75,6 +75,21 @@ class ChatbotClient:
             ),
         )
 
+    def create_new_chat_id(self) -> Optional[str]:
+        try:
+            response = self._get_chat_create_reponse()
+            return response.chatId
+        except Exception as e:
+            self.logger.warning(f"Failed to create chat")
+            raise
+
+    def delete_chat(self, chat_id: str) -> None:
+        try:
+            self._make_request(endpoint=f"/api/chats/{chat_id}", method="DELETE")
+        except Exception as e:
+            self.logger.warning(f"Failed to delete chat with chat_id: {chat_id}")
+            raise
+
     def _get_chat_completion_response(
         self,
         chat_id: str,
@@ -114,52 +129,6 @@ class ChatbotClient:
             traceLog=response.get("traceLog"),
         )
 
-    def _get_chat_response(self, chat_id: str) -> GetChatResponseDto:
-        response = self._make_request(endpoint=f"/api/chats/{chat_id}")
-        return GetChatResponseDto(
-            chatId=response.get("chatId"),
-            displayName=response.get("displayName"),
-            createdUtc=response.get("createdUtc"),
-            lastAccessedUtc=response.get("lastAccessedUtc"),
-            botId=response.get("botId"),
-            botDisplayName=response.get("botDisplayName"),
-            botDisplayMessage=response.get("botDisplayMessage"),
-            botDescription=response.get("botDescription"),
-            botSampleQuestion1=response.get("botSampleQuestion1"),
-            botSampleQuestion2=response.get("botSampleQuestion2"),
-            completions=[
-                GetChatResponseCompletionDto(**comp)
-                for comp in response.get("completions", [])
-            ],  # Mock
-            isFavorite=response.get("isFavorite"),
-            isUserSystemMessageSupported=response.get("isUserSystemMessageSupported"),
-            userSystemMessageId=response.get("userSystemMessageId"),
-            userSystemMessageDisplayName=response.get("userSystemMessageDisplayName"),
-        )
-
-    def delete_chat(self, chat_id: str) -> None:
-        try:
-            self._make_request(endpoint=f"/api/chats/{chat_id}", method="DELETE")
-        except Exception as e:
-            self.logger.warning(f"Failed to delete chat with chat_id: {chat_id}")
-            raise
-
-    def get_existing_chat(self, chat_id: str) -> Optional[str]:
-        try:
-            response = self._get_chat_response(chat_id=chat_id)
-            return response.chatId
-        except Exception as e:
-            self.logger.warning(f"Failed to fetch chat with chat_id: {chat_id}")
-            raise
-
-    def create_new_chat_id(self) -> Optional[str]:
-        try:
-            response = self._get_chat_create_reponse()
-            return response.chatId
-        except Exception as e:
-            self.logger.warning(f"Failed to create chat")
-            raise
-
     def send_and_receive_message_to_chat(
         self,
         chat_id: str,
@@ -184,4 +153,35 @@ class ChatbotClient:
             self.logger.warning(
                 f"Failed to send message to chat with chat_id: {chat_id}"
             )
+            raise
+
+    def _get_chat_response(self, chat_id: str) -> GetChatResponseDto:
+        response = self._make_request(endpoint=f"/api/chats/{chat_id}")
+        return GetChatResponseDto(
+            chatId=response.get("chatId"),
+            displayName=response.get("displayName"),
+            createdUtc=response.get("createdUtc"),
+            lastAccessedUtc=response.get("lastAccessedUtc"),
+            botId=response.get("botId"),
+            botDisplayName=response.get("botDisplayName"),
+            botDisplayMessage=response.get("botDisplayMessage"),
+            botDescription=response.get("botDescription"),
+            botSampleQuestion1=response.get("botSampleQuestion1"),
+            botSampleQuestion2=response.get("botSampleQuestion2"),
+            completions=[
+                GetChatResponseCompletionDto(**comp)
+                for comp in response.get("completions", [])
+            ],  # Mock
+            isFavorite=response.get("isFavorite"),
+            isUserSystemMessageSupported=response.get("isUserSystemMessageSupported"),
+            userSystemMessageId=response.get("userSystemMessageId"),
+            userSystemMessageDisplayName=response.get("userSystemMessageDisplayName"),
+        )
+
+    def get_existing_chat(self, chat_id: str) -> Optional[str]:
+        try:
+            response = self._get_chat_response(chat_id=chat_id)
+            return response.chatId
+        except Exception as e:
+            self.logger.warning(f"Failed to fetch chat with chat_id: {chat_id}")
             raise

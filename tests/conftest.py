@@ -97,3 +97,9 @@ def open_chat_bot_id_response_dto():
 def mock_make_request():
     with patch.object(ChatbotClient, "_make_request") as mock:
         yield mock
+
+
+@pytest.fixture
+def mock_chatbot_client():
+    client = ChatbotClient(base_url="http://fakeurl.com")
+    return client
