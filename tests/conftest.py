@@ -1,5 +1,3 @@
-from unittest.mock import patch
-
 import pytest
 
 from chatbot_client.chatbot_client import ChatbotClient

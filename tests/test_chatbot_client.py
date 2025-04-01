@@ -1,6 +1,5 @@
 import pytest
 from unittest.mock import MagicMock
-from chatbot_client.chatbot_client import ChatbotClient
 
 
 def test_make_request(mock_chatbot_client):
